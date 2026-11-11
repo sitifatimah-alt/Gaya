@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Interaktif IPA Kelas 7: Gaya & Hukum Newton</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- SheetJS (XLSX Export Library) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fff7ed;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #ffedd5;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #fb923c;
+            border-radius: 4px;
+        }
+        .tab-btn.active {
+            background-color: #ea580c;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        }
+        /* Style Notasi Ilmiah Baku Fisika */
+        .sci-sym {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-weight: 600;
+        }
+        .sci-unit {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-brand-600 via-brand-500 to-amber-500 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md flex items-center justify-center text-white">
+                        <i class="fa-solid fa-atom text-3xl animate-spin-slow"></i>
+                    </div>
+                    <div>
+                        <span class="bg-amber-200 text-brand-900 text-xs font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Bab IV Gerak & Gaya dalam Teknologi</span>
+                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">Modul Interaktif: Gaya & Hukum Newton</h1>
+                        <p class="text-xs sm:text-sm text-brand-100 font-medium">MTsN 1 Kota Malang | Penyusun: Siti Fatimah, S.Pd.</p>
+                    </div>
+                </div>
+                <!-- Navigation Tabs -->
+                <nav class="flex bg-brand-700/50 p-1.5 rounded-xl backdrop-blur-md overflow-x-auto custom-scrollbar">
+                    <button onclick="switchTab('materi')" id="tab-materi" class="tab-btn active text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 whitespace-nowrap flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Materi
+                    </button>
+                    <button onclick="switchTab('simulasi')" id="tab-simulasi" class="tab-btn text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg text-brand-100 hover:text-white transition-all duration-200 whitespace-nowrap flex items-center gap-2">
+                        <i class="fa-solid fa-flask"></i> Simulasi Virtual
+                    </button>
+                    <button onclick="switchTab('lkpd')" id="tab-lkpd" class="tab-btn text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg text-brand-100 hover:text-white transition-all duration-200 whitespace-nowrap flex items-center gap-2">
+                        <i class="fa-solid fa-file-pen"></i> LKPD Digital
+                    </button>
+                    <button onclick="switchTab('latihan')" id="tab-latihan" class="tab-btn text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg text-brand-100 hover:text-white transition-all duration-200 whitespace-nowrap flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question"></i> Latihan Soal
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= TAB MATERI ================= -->
+        <section id="sec-materi" class="space-y-6">
+            <!-- Hero Card -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-brand-100 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-100 rounded-full blur-2xl opacity-50"></div>
+                <div class="max-w-3xl space-y-3 relative z-10">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900">Mengapa Benda Bergerak atau Diam?</h2>
+                    <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                        Apakah kamu pernah memikirkan bagaimana roket super besar seperti SpaceX meluncur ke luar angkasa? Atau mengapa badanmu terdorong ke depan saat bus mendadak di-rem? Semua fenomena tersebut dikendalikan oleh konsep **Gaya** dan **Hukum Newton**!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Anchor Symbol Notasi Ilmiah Quick Reference -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center text-xl shadow-sm sci-sym">
+                        F
+                    </div>
+                    <div>
+                        <div class="text-xs text-amber-800 font-medium">Gaya (Force)</div>
+                        <div class="text-sm font-bold text-slate-800">Satuan: Newton (N)</div>
+                    </div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center text-xl shadow-sm sci-sym">
+                        m
+                    </div>
+                    <div>
+                        <div class="text-xs text-amber-800 font-medium">Massa Benda</div>
+                        <div class="text-sm font-bold text-slate-800">Satuan: Kilogram (kg)</div>
+                    </div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center text-xl shadow-sm sci-sym">
+                        a
+                    </div>
+                    <div>
+                        <div class="text-xs text-amber-800 font-medium">Percepatan</div>
+                        <div class="text-sm font-bold text-slate-800">Satuan: m/s<sup>2</sup></div>
+                    </div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center text-xl shadow-sm sci-sym">
+                        &Sigma;F
+                    </div>
+                    <div>
+                        <div class="text-xs text-amber-800 font-medium">Resultan Gaya</div>
+                        <div class="text-sm font-bold text-slate-800"><span class="sci-sym">R</span> / <span class="sci-sym">&Sigma;F</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Material Content Accordion / Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Concept 1: Pengertian & Resultan Gaya -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-100 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2.5 bg-brand-100 text-brand-600 rounded-xl font-bold">01</span>
+                            <h3 class="text-lg font-bold text-slate-900">Pengertian Gaya & Resultan Gaya</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            **Gaya (<span class="sci-sym">F</span>)** adalah dorongan atau tarikan yang dapat menyebabkan benda mengalami perubahan posisi, kecepatan, maupun bentuk. Gaya termasuk **besaran vektor** (memiliki nilai dan arah).
+                        </p>
+                        <div class="bg-brand-50 p-4 rounded-2xl border border-brand-200 space-y-2">
+                            <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider">Notasi Resultan Gaya (&Sigma;<span class="sci-sym">F</span>)</h4>
+                            <p class="text-sm text-slate-700">
+                                Jika gaya searah: <span class="sci-sym">R = F<sub>1</sub> + F<sub>2</sub> + F<sub>3</sub> + ...</span><br>
+                                Jika gaya berlawanan arah: <span class="sci-sym">R = F<sub>1</sub> + (-F<sub>2</sub>)</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept 2: Gaya Gesek -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-100 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="p-2.5 bg-brand-100 text-brand-600 rounded-xl font-bold">02</span>
+                            <h3 class="text-lg font-bold text-slate-900">Gaya Gesek: Statis & Kinetis</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Gaya gesek (<span class="sci-sym">f<sub>g</sub></span>) terjadi akibat interaksi dua permukaan yang bersentuhan. Arahnya selalu berlawanan dengan arah gerak benda.
+                        </p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-brand-500 mt-1"></i>
+                                <span>**Gaya Gesek Statis (<span class="sci-sym">f<sub>s</sub></span>):** Bekerja saat benda belum bergerak. Membuat awal mula mendorong meja terasa berat.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-brand-500 mt-1"></i>
+                                <span>**Gaya Gesek Kinetis (<span class="sci-sym">f<sub>k</sub></span>):** Bekerja saat benda sudah dalam keadaan bergerak. Nilainya lebih kecil dari <span class="sci-sym">f<sub>s</sub></span>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Laws of Newton Cards -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-brand-900 flex items-center gap-2">
+                    <i class="fa-solid fa-landmark"></i> Tiga Prinsip Utama Hukum Newton
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Hukum I Newton -->
+                    <div class="bg-gradient-to-b from-white to-orange-50/50 rounded-3xl p-6 shadow-sm border border-brand-200 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-brand-500 text-white font-bold text-xs rounded-full">Hukum I Newton</span>
+                                <span class="text-sm font-bold text-brand-700 sci-sym">&Sigma;F = 0</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900">Kelembaman (Inersia)</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                *"Setiap benda akan tetap diam atau bergerak lurus beraturan jika tidak ada gaya luar yang bekerja padanya."*
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-brand-100 text-xs text-brand-800 font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-car-side"></i> Contoh: Tubuh terdorong saat mobil direm mendadak.
+                        </div>
+                    </div>
+
+                    <!-- Hukum II Newton -->
+                    <div class="bg-gradient-to-b from-white to-orange-50/50 rounded-3xl p-6 shadow-sm border border-brand-200 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-brand-500 text-white font-bold text-xs rounded-full">Hukum II Newton</span>
+                                <span class="text-sm font-bold text-brand-700 sci-sym">F = m &middot; a</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900">Percepatan & Gaya</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                *"Percepatan (<span class="sci-sym">a</span>) sebanding dengan total gaya (<span class="sci-sym">F</span>) dan berbanding terbalik dengan massa (<span class="sci-sym">m</span>)."*
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-brand-100 text-xs text-brand-800 font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-truck"></i> Contoh: Truk bermuatan besar butuh gaya mesin lebih kuat dibanding mobil kecil.
+                        </div>
+                    </div>
+
+                    <!-- Hukum III Newton -->
+                    <div class="bg-gradient-to-b from-white to-orange-50/50 rounded-3xl p-6 shadow-sm border border-brand-200 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 bg-brand-500 text-white font-bold text-xs rounded-full">Hukum III Newton</span>
+                                <span class="text-sm font-bold text-brand-700 sci-sym">F<sub>aksi</sub> = -F<sub>reaksi</sub></span>
+                            </div>
+                            <h4 class="font-bold text-slate-900">Aksi & Reaksi</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                *"Jika benda A memberikan gaya aksi pada benda B, maka benda B memberikan gaya reaksi yang sama besar tetapi berlawanan arah."*
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-brand-100 text-xs text-brand-800 font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-rocket"></i> Contoh: Semburan gas roket ke bawah mendorong badan roket naik ke atas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB SIMULASI ================= -->
+        <section id="sec-simulasi" class="hidden space-y-6">
+            <div class="bg-white p-4 sm:p-6 rounded-3xl shadow-sm border border-brand-100">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-brand-900 flex items-center gap-2">
+                            <i class="fa-solid fa-vr-cardboard text-brand-500"></i> Virtual Physics Lab: Simulasi Newton
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-500">Pilih prinsip simulasi untuk melihat hukum fisika bekerja secara real-time.</p>
+                    </div>
+                    <!-- Controller Switcher -->
+                    <div class="flex bg-brand-50 p-1 rounded-xl border border-brand-200 text-xs sm:text-sm">
+                        <button onclick="loadSimulation(1)" id="sim-btn-1" class="px-3 py-1.5 rounded-lg font-semibold transition-all bg-brand-500 text-white shadow-sm">Hukum I</button>
+                        <button onclick="loadSimulation(2)" id="sim-btn-2" class="px-3 py-1.5 rounded-lg font-semibold text-brand-800 hover:bg-brand-100 transition-all">Hukum II</button>
+                        <button onclick="loadSimulation(3)" id="sim-btn-3" class="px-3 py-1.5 rounded-lg font-semibold text-brand-800 hover:bg-brand-100 transition-all">Hukum III (Roket)</button>
+                    </div>
+                </div>
+
+                <!-- Simulation Canvas Container -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Controls Area -->
+                    <div class="bg-brand-50/60 p-5 rounded-2xl border border-brand-200 flex flex-col justify-between space-y-4">
+                        <div id="sim-controls">
+                            <!-- Dynamic controls inserted via JS -->
+                        </div>
+                        <button onclick="resetSimulation()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-semibold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-rotate-left"></i> Reset Simulasi
+                        </button>
+                    </div>
+
+                    <!-- Canvas Interactive Display -->
+                    <div class="lg:col-span-2 relative bg-slate-900 rounded-2xl overflow-hidden min-h-[350px] flex flex-col justify-center items-center shadow-inner">
+                        <canvas id="simCanvas" class="w-full h-full block"></canvas>
+                        <!-- Live Telemetry Overlay -->
+                        <div id="telemetry" class="absolute top-4 right-4 bg-slate-800/80 backdrop-blur-md text-white text-xs p-3 rounded-xl border border-slate-700 font-mono space-y-1">
+                            <div>Kecepatan (<span class="sci-sym">v</span>): <span id="tel-v" class="text-amber-400 font-bold">0.0 m/s</span></div>
+                            <div>Percepatan (<span class="sci-sym">a</span>): <span id="tel-a" class="text-amber-400 font-bold">0.0 m/s²</span></div>
+                            <div>Total Gaya (&Sigma;<span class="sci-sym">F</span>): <span id="tel-f" class="text-amber-400 font-bold">0 N</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB LKPD ================= -->
+        <section id="sec-lkpd" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-brand-100 space-y-6">
+                <!-- LKPD Header -->
+                <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                    <div>
+                        <span class="bg-brand-100 text-brand-700 text-xs font-bold px-3 py-1 rounded-full">LKPD Interaktif Digital</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Lembar Kerja Peserta Didik: Gaya & Percepatan</h2>
+                        <p class="text-xs text-slate-500">Mata Pelajaran: IPA | Kelas VII MTsN 1 Kota Malang</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 self-start sm:self-auto">
+                        <button onclick="exportLKPDWord()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 shadow-sm transition-all">
+                            <i class="fa-solid fa-file-word"></i> Unduh LKPD (Word)
+                        </button>
+                        <button onclick="printLKPD()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 shadow-sm transition-all">
+                            <i class="fa-solid fa-print"></i> Cetak / PDF
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Identity Form -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-50/50 p-4 rounded-2xl border border-amber-200/60">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Nama Siswa / Kelompok:</label>
+                        <input type="text" id="lkpd-nama" placeholder="Tuliskan namamu..." class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Kelas:</label>
+                        <input type="text" id="lkpd-kelas" value="VII - MTsN 1 Kota Malang" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Kegiatan:</label>
+                        <input type="date" id="lkpd-tgl" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-brand-500">
+                    </div>
+                </div>
+
+                <!-- Activity 1: Observation Data -->
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-brand-900 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-brand-500"></i> Kegiatan 1: Data Pengamatan Simulasi Hukum II Newton
+                    </h3>
+                    <p class="text-xs text-slate-600">Gunakan tab <b>Simulasi Virtual (Hukum II)</b> untuk mengisi tabel hasil eksperimen di bawah ini:</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-xl">
+                            <thead class="bg-brand-50 text-brand-900 font-bold">
+                                <tr>
+                                    <th class="p-3 border border-slate-200 text-center">Percobaan Ke-</th>
+                                    <th class="p-3 border border-slate-200">Gaya Dorong (<span class="sci-sym">F</span>) [N]</th>
+                                    <th class="p-3 border border-slate-200">Massa Benda (<span class="sci-sym">m</span>) [kg]</th>
+                                    <th class="p-3 border border-slate-200">Hasil Percepatan (<span class="sci-sym">a</span>) [m/s<sup>2</sup>]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="p-2 border border-slate-200 text-center font-bold">1</td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="misal: 10" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="misal: 2" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="hitung F/m" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                </tr>
+                                <tr class="bg-slate-50/50">
+                                    <td class="p-2 border border-slate-200 text-center font-bold">2</td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="misal: 20" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="misal: 2" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="hitung F/m" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="p-2 border border-slate-200 text-center font-bold">3</td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="misal: 20" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="misal: 5" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                    <td class="p-2 border border-slate-200"><input type="number" placeholder="hitung F/m" class="w-full p-1.5 border rounded-lg text-xs"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Analysis Questions -->
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-brand-900 flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-brand-500"></i> Analisis & Diskusi
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">1. Berdasarkan data tabel, apa yang terjadi pada percepatan (<span class="sci-sym">a</span>) jika gaya (<span class="sci-sym">F</span>) diperbesar sedangkan massa (<span class="sci-sym">m</span>) tetap?</label>
+                            <textarea id="lkpd-ans1" rows="2" placeholder="Jawaban analisis kamu..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs sm:text-sm focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">2. Jelaskan penerapan Hukum III Newton (<span class="sci-sym">F<sub>aksi</sub> = -F<sub>reaksi</sub></span>) pada peluncuran roket!</label>
+                            <textarea id="lkpd-ans2" rows="2" placeholder="Jawaban analisis kamu..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs sm:text-sm focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reflection -->
+                <div class="bg-brand-50/70 p-5 rounded-2xl border border-brand-200 space-y-2">
+                    <h4 class="text-xs font-bold text-brand-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i> Refleksi Pembelajaran
+                    </h4>
+                    <p class="text-xs text-slate-600">Apa hal yang paling menarik yang kamu pelajari hari ini bersama Ibu Siti Fatimah?</p>
+                    <textarea id="lkpd-refleksi" rows="2" placeholder="Tuliskan pesan refleksi kamu..." class="w-full bg-white border border-brand-200 rounded-xl p-3 text-xs sm:text-sm focus:outline-none focus:border-brand-500"></textarea>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB LATIHAN SOAL ================= -->
+        <section id="sec-latihan" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-brand-100 space-y-6">
+                <!-- Quiz Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-4 gap-4">
+                    <div>
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Evaluasi Pemahaman</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1">10 Latihan Soal Interaktif</h2>
+                        <p class="text-xs text-slate-500">Uji kemampuanmu pada materi Gaya & Hukum Newton!</p>
+                    </div>
+                    <div id="quiz-score-badge" class="hidden bg-brand-500 text-white px-5 py-2.5 rounded-2xl font-bold text-center shadow-sm">
+                        <div class="text-xs text-brand-100">Nilai Kamu:</div>
+                        <div class="text-xl" id="final-score">0 / 100</div>
+                    </div>
+                </div>
+
+                <!-- Quiz Form -->
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Dynamic Question Rendering -->
+                </div>
+
+                <!-- Quiz Submit & Feedback -->
+                <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                        <button onclick="submitQuiz()" class="w-full sm:w-auto px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Jawaban
+                        </button>
+                    </div>
+                    <button onclick="resetQuiz()" class="w-full sm:w-auto px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i> Coba Lagi
+                    </button>
+                </div>
+
+                <!-- Panel khusus Guru: Rekapitulasi Nilai Ke Excel -->
+                <div class="mt-8 pt-6 border-t border-amber-200/80 bg-amber-50/60 p-5 rounded-2xl space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                        <div>
+                            <span class="bg-amber-200 text-amber-900 font-extrabold text-[10px] uppercase px-2.5 py-0.5 rounded-full">Panel Guru</span>
+                            <h3 class="text-base font-bold text-amber-950 mt-1 flex items-center gap-2">
+                                <i class="fa-solid fa-user-tie text-brand-600"></i> Rekapitulasi Nilai Siswa (Ekspor Excel)
+                            </h3>
+                            <p class="text-xs text-slate-600">Ibu Guru dapat mengunduh seluruh data kiriman nilai siswa dalam format Excel (.xlsx).</p>
+                        </div>
+                        <button onclick="exportTeacherQuizExcel()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all shrink-0">
+                            <i class="fa-solid fa-file-excel text-base"></i> Unduh Rekap Nilai Siswa (Excel)
+                        </button>
+                    </div>
+                    
+                    <!-- Table Preview Kiriman Siswa -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left border-collapse border border-amber-200 rounded-xl bg-white">
+                            <thead class="bg-amber-100 text-amber-900 font-bold">
+                                <tr>
+                                    <th class="p-2.5 border border-amber-200 text-center">No</th>
+                                    <th class="p-2.5 border border-amber-200">Nama Siswa</th>
+                                    <th class="p-2.5 border border-amber-200">Kelas</th>
+                                    <th class="p-2.5 border border-amber-200 text-center">Tanggal Kirim</th>
+                                    <th class="p-2.5 border border-amber-200 text-center">Nilai Akhir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teacher-score-tbody">
+                                <tr>
+                                    <td colspan="5" class="p-4 text-center text-slate-400 italic">Belum ada data nilai yang dikirimkan siswa. Selesaikan quiz dan klik "Kirim Jawaban".</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-brand-100 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+            <p class="font-semibold text-brand-800">Modul Interaktif IPA Kelas 7 MTsN 1 Kota Malang</p>
+            <p>Dikembangkan untuk mendukung Pembelajaran Bermakna & Kurikulum Merdeka (Edisi Revisi)</p>
+        </div>
+    </footer>
+
+    <!-- Script Logic -->
+    <script>
+        // ================= TAB NAVIGATION =================
+        function switchTab(tabId) {
+            const tabs = ['materi', 'simulasi', 'lkpd', 'latihan'];
+            tabs.forEach(t => {
+                document.getElementById(`sec-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('active', 'bg-brand-600', 'text-white');
+                document.getElementById(`tab-${t}`).classList.add('text-brand-100');
+            });
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.add('active');
+
+            if (tabId === 'simulasi') {
+                initCanvas();
+            }
+        }
+
+        // ================= QUIZ DATA & LOGIC =================
+        const questionsData = [
+            {
+                id: 1,
+                question: "Sebuah meja didorong dengan gaya <span class='sci-sym'>F<sub>1</sub> = 30 N</span> ke kanan dan <span class='sci-sym'>F<sub>2</sub> = 10 N</span> ke kiri. Berapakah resultan gaya (&Sigma;<span class='sci-sym'>F</span>) yang dirasakan meja?",
+                options: [
+                    "40 N ke kanan",
+                    "20 N ke kanan",
+                    "20 N ke kiri",
+                    "30 N ke kiri"
+                ],
+                answer: 1,
+                explanation: "Gaya yang berlawanan arah dikurangkan: &Sigma;<span class='sci-sym'>F = F<sub>1</sub> - F<sub>2</sub> = 30 N - 10 N = 20 N</span> ke arah gaya terbesar (ke kanan)."
+            },
+            {
+                id: 2,
+                question: "Sifat kecenderungan suatu benda untuk mempertahankan posisinya (tetap diam atau tetap bergerak lurus beraturan) dinamakan...",
+                options: [
+                    "Percepatan",
+                    "Kelembaman (Inersia)",
+                    "Gaya Gesek",
+                    "Aksi-Reaksi"
+                ],
+                answer: 1,
+                explanation: "Hukum I Newton menjelaskan tentang sifat kelembaman (inersia), yaitu kecenderungan alami benda mempertahankan kecepatannya."
+            },
+            {
+                id: 3,
+                question: "Manakah rumusan matematik ilmiah yang benar untuk Hukum II Newton?",
+                options: [
+                    "&Sigma;<span class='sci-sym'>F = 0</span>",
+                    "<span class='sci-sym'>F = m &middot; a</span>",
+                    "<span class='sci-sym'>F<sub>aksi</sub> = -F<sub>reaksi</sub></span>",
+                    "<span class='sci-sym'>v = s / t</span>"
+                ],
+                answer: 1,
+                explanation: "Hukum II Newton merumuskan gaya F sebanding dengan massa m dikali percepatan a (F = m · a)."
+            },
+            {
+                id: 4,
+                question: "Jika massa sebuah benda diset <span class='sci-sym'>m = 5 kg</span> dan diberi gaya dorong <span class='sci-sym'>F = 25 N</span>, berapakah nilai percepatannya (<span class='sci-sym'>a</span>)?",
+                options: [
+                    "125 m/s²",
+                    "5 m/s²",
+                    "0.2 m/s²",
+                    "20 m/s²"
+                ],
+                answer: 1,
+                explanation: "Menggunakan persamaan a = F / m = 25 N / 5 kg = 5 m/s²."
+            },
+            {
+                id: 5,
+                question: "Saat roket meluncur ke udara, gas pendorong disemburkan ke bawah (<span class='sci-sym'>F<sub>aksi</sub></span>) dan roket terdorong ke atas (<span class='sci-sym'>F<sub>reaksi</sub></span>). Fenomena ini merupakan prinsip dari...",
+                options: [
+                    "Hukum I Newton",
+                    "Hukum II Newton",
+                    "Hukum III Newton",
+                    "Gaya Gesek Statis"
+                ],
+                answer: 2,
+                explanation: "Prinsip aksi-reaksi (F_aksi = -F_reaksi) merupakan inti pembahasan dari Hukum III Newton."
+            },
+            {
+                id: 6,
+                question: "Mengapa dorongan awal saat pertama kali menggerakkan meja yang diam terasa lebih berat dibandingkan ketika meja sudah mulai meluncur?",
+                options: [
+                    "Karena gaya gesek kinetis lebih besar dari gesek statis",
+                    "Karena gaya gesek statis bekerja saat diam dan nilainya lebih besar dari gesek kinetis",
+                    "Massa benda berkurang saat bergerak",
+                    "Gaya gravitasi menghilang saat bergerak"
+                ],
+                answer: 1,
+                explanation: "Gaya gesek statis (f_s) menahan benda saat diam dan nilainya lebih tinggi daripada gaya gesek kinetis (f_k) saat benda meluncur."
+            },
+            {
+                id: 7,
+                question: "Contoh penerapan Hukum I Newton dalam kehidupan sehari-hari adalah...",
+                options: [
+                    "Tangan terasa sakit saat memukul meja",
+                    "Penumpang terdorong ke depan saat bus direm mendadak",
+                    "Mobil balap melaju lebih cepat dibanding truk",
+                    "Batu tenggelam di dalam air"
+                ],
+                answer: 1,
+                explanation: "Tubuh penumpang berusaha mempertahankan posisinya bergerak ke depan saat bus mendadak pengereman (Inersia/Kelembaman)."
+            },
+            {
+                id: 8,
+                question: "Dua buah gaya searah bekerja pada sebuah benda, masing-masing <span class='sci-sym'>F<sub>1</sub> = 15 N</span> dan <span class='sci-sym'>F<sub>2</sub> = 25 N</span>. Besar resultan gayanya (&Sigma;<span class='sci-sym'>F</span>) adalah...",
+                options: [
+                    "10 N",
+                    "40 N",
+                    "375 N",
+                    "1.6 N"
+                ],
+                answer: 1,
+                explanation: "Gaya yang searah dijumlahkan: ∑F = F1 + F2 = 15 N + 25 N = 40 N."
+            },
+            {
+                id: 9,
+                question: "Salah satu contoh usaha untuk mengurangi gaya gesek yang merugikan pada rantai sepeda motor adalah...",
+                options: [
+                    "Memberikan pelumas / oli",
+                    "Membuat alur pada ban",
+                    "Menambah massa motor",
+                    "Menghilangkan rem"
+                ],
+                answer: 0,
+                explanation: "Pemberian oli/pelumas melicinkan permukaan kontak antar gir dan rantai sehingga meminimalkan gesekan yang merusak."
+            },
+            {
+                id: 10,
+                question: "Satuan standar internasional (SI) untuk mengukur besaran Massa (<span class='sci-sym'>m</span>) dan Gaya (<span class='sci-sym'>F</span>) berturut-turut adalah...",
+                options: [
+                    "Gram dan Dyne",
+                    "Kilogram (kg) dan Newton (N)",
+                    "Meter (m) dan Joule (J)",
+                    "Sekon (s) dan Watt (W)"
+                ],
+                answer: 1,
+                explanation: "Dalam SI, massa dinyatakan dalam Kilogram (kg) dan Gaya dinyatakan dalam Newton (N)."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            questionsData.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-amber-50/40 p-5 rounded-2xl border border-amber-200 space-y-3";
+                
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <label class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 hover:border-brand-400 cursor-pointer transition-all text-xs sm:text-sm">
+                            <input type="radio" name="q_${q.id}" value="${optIdx}" class="accent-brand-500">
+                            <span>${opt}</span>
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <span class="bg-brand-500 text-white font-bold text-xs px-2.5 py-1 rounded-lg shrink-0">${idx + 1}</span>
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">${q.question}</div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                        ${optionsHTML}
+                    </div>
+                    <div id="feedback_${q.id}" class="hidden p-3 rounded-xl text-xs sm:text-sm mt-2"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        let lastQuizScore = 0;
+        let lastQuizDetails = [];
+        let submissionHistory = [];
+
+        function submitQuiz() {
+            let score = 0;
+            lastQuizDetails = [];
+
+            questionsData.forEach(q => {
+                const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+                const feedbackDiv = document.getElementById(`feedback_${q.id}`);
+                feedbackDiv.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+                let userAnsIdx = selected ? parseInt(selected.value) : -1;
+                let isCorrect = userAnsIdx === q.answer;
+
+                if (isCorrect) {
+                    score += 10;
+                    feedbackDiv.classList.add('bg-emerald-100', 'text-emerald-800');
+                    feedbackDiv.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> <b>BENAR!</b> ${q.explanation}`;
+                } else {
+                    feedbackDiv.classList.add('bg-rose-100', 'text-rose-800');
+                    let correctText = q.options[q.answer];
+                    feedbackDiv.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 mr-1"></i> <b>SALAH!</b> Jawaban yang benar: <b>${correctText}</b>.<br><span class="text-xs">${q.explanation}</span>`;
+                }
+
+                lastQuizDetails.push({
+                    no: q.id,
+                    soal: q.question.replace(/<[^>]*>?/gm, ''),
+                    jawabanSiswa: userAnsIdx >= 0 ? q.options[userAnsIdx].replace(/<[^>]*>?/gm, '') : 'Tidak Dijawab',
+                    kunciJawaban: q.options[q.answer].replace(/<[^>]*>?/gm, ''),
+                    status: isCorrect ? 'BENAR' : 'SALAH'
+                });
+            });
+
+            lastQuizScore = score;
+            const scoreBadge = document.getElementById('quiz-score-badge');
+            const scoreText = document.getElementById('final-score');
+            scoreBadge.classList.remove('hidden');
+            scoreText.textContent = `${score} / 100`;
+
+            // Simpan Data Nilai Siswa ke Rekap Guru
+            const namaSiswa = document.getElementById('lkpd-nama')?.value || 'Siswa MTsN 1';
+            const kelasSiswa = document.getElementById('lkpd-kelas')?.value || 'VII';
+            const currentTgl = new Date().toLocaleString('id-ID');
+
+            submissionHistory.push({
+                nama: namaSiswa,
+                kelas: kelasSiswa,
+                tgl: currentTgl,
+                nilai: score,
+                details: [...lastQuizDetails]
+            });
+
+            updateTeacherScoreTable();
+            scoreBadge.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateTeacherScoreTable() {
+            const tbody = document.getElementById('teacher-score-tbody');
+            if (!tbody) return;
+
+            if (submissionHistory.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400 italic">Belum ada data nilai yang dikirimkan siswa. Selesaikan quiz dan klik "Kirim Jawaban".</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = submissionHistory.map((item, idx) => `
+                <tr class="hover:bg-amber-50/50">
+                    <td class="p-2.5 border border-amber-200 text-center font-bold">${idx + 1}</td>
+                    <td class="p-2.5 border border-amber-200 font-semibold text-slate-800">${item.nama}</td>
+                    <td class="p-2.5 border border-amber-200">${item.kelas}</td>
+                    <td class="p-2.5 border border-amber-200 text-center text-slate-500">${item.tgl}</td>
+                    <td class="p-2.5 border border-amber-200 text-center font-bold ${item.nilai >= 70 ? 'text-emerald-600' : 'text-rose-600'}">${item.nilai}</td>
+                </tr>
+            `).join('');
+        }
+
+        function exportTeacherQuizExcel() {
+            if (submissionHistory.length === 0) {
+                alert('Belum ada data nilai latihan siswa yang dapat diunduh! Minta siswa mengerjakan soal dan mengklik "Kirim Jawaban".');
+                return;
+            }
+
+            const wb = XLSX.utils.book_new();
+
+            // Sheet 1: Rekap Semua Nilai Siswa
+            const summaryData = [
+                ["REKAPITULASI EVALUASI LATIHAN SOAL IPA (HUKUM NEWTON)"],
+                ["MTsN 1 KOTA MALANG - GURU IPA: SITI FATIMAH, S.Pd."],
+                ["Waktu Unduh", new Date().toLocaleString('id-ID')],
+                [""],
+                ["No", "Nama Siswa", "Kelas", "Waktu Pengerjaan", "Nilai Akhir (0-100)", "Status KKM (70)"]
+            ];
+
+            submissionHistory.forEach((item, idx) => {
+                summaryData.push([
+                    idx + 1,
+                    item.nama,
+                    item.kelas,
+                    item.tgl,
+                    item.nilai,
+                    item.nilai >= 70 ? "TUNTAS" : "REMEDIAL"
+                ]);
+            });
+
+            const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+            XLSX.utils.book_append_sheet(wb, wsSummary, "Rekap Nilai Siswa");
+
+            // Sheet 2: Rincian Jawaban Per Soal
+            const detailData = [
+                ["RINCIAN EVALUASI JAWABAN PER NOMOR SOAL"],
+                [""],
+                ["Nama Siswa", "No Soal", "Pertanyaan", "Jawaban Siswa", "Kunci Jawaban", "Status Evaluasi"]
+            ];
+
+            submissionHistory.forEach((item) => {
+                item.details.forEach((d) => {
+                    detailData.push([
+                        item.nama,
+                        d.no,
+                        d.soal,
+                        d.jawabanSiswa,
+                        d.kunciJawaban,
+                        d.status
+                    ]);
+                });
+            });
+
+            const wsDetail = XLSX.utils.aoa_to_sheet(detailData);
+            XLSX.utils.book_append_sheet(wb, wsDetail, "Rincian Jawaban Soal");
+
+            XLSX.writeFile(wb, `Rekap_Nilai_IPA_Gaya_Newton_MTsN1_${new Date().toISOString().split('T')[0]}.xlsx`);
+        }
+
+        function resetQuiz() {
+            questionsData.forEach(q => {
+                const radios = document.querySelectorAll(`input[name="q_${q.id}"]`);
+                radios.forEach(r => r.checked = false);
+
+                const feedbackDiv = document.getElementById(`feedback_${q.id}`);
+                if (feedbackDiv) feedbackDiv.classList.add('hidden');
+            });
+
+            document.getElementById('quiz-score-badge').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================= EXCEL REMOVED FROM LKPD =================
+        // Function exportLKPDExcel is removed per requirement.
+
+        // ================= WORD EXPORT LOGIC (.DOCX) =================
+        function exportLKPDWord() {
+            const nama = document.getElementById('lkpd-nama').value || 'Siswa_MTsN1';
+            const kelas = document.getElementById('lkpd-kelas').value || 'VII - MTsN 1 Kota Malang';
+            const tgl = document.getElementById('lkpd-tgl').value || new Date().toISOString().split('T')[0];
+            const ans1 = document.getElementById('lkpd-ans1').value || 'Belum diisi';
+            const ans2 = document.getElementById('lkpd-ans2').value || 'Belum diisi';
+            const refleksi = document.getElementById('lkpd-refleksi').value || 'Belum diisi';
+
+            // Ambil data tabel pengamatan
+            const rows = document.querySelectorAll('#sec-lkpd table tbody tr');
+            let tableRowsHTML = '';
+            rows.forEach((tr, i) => {
+                const inputs = tr.querySelectorAll('input');
+                const fVal = inputs[0]?.value || '-';
+                const mVal = inputs[1]?.value || '-';
+                const aVal = inputs[2]?.value || '-';
+                tableRowsHTML += `
+                    <tr>
+                        <td style="border: 1px solid #cccccc; padding: 8px; text-align: center;">${i + 1}</td>
+                        <td style="border: 1px solid #cccccc; padding: 8px; text-align: center;">${fVal} N</td>
+                        <td style="border: 1px solid #cccccc; padding: 8px; text-align: center;">${mVal} kg</td>
+                        <td style="border: 1px solid #cccccc; padding: 8px; text-align: center;">${aVal} m/s²</td>
+                    </tr>
+                `;
+            });
+
+            const content = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>LKPD IPA - Gaya & Hukum Newton</title>
+                    <style>
+                        body { font-family: 'Calibri', 'Arial', sans-serif; color: #333333; line-height: 1.5; }
+                        h1 { color: #c2410c; font-size: 18pt; text-align: center; margin-bottom: 4px; }
+                        h2 { color: #ea580c; font-size: 14pt; border-bottom: 2px solid #ea580c; padding-bottom: 4px; margin-top: 18px; }
+                        .subtitle { text-align: center; font-size: 10pt; color: #666666; margin-bottom: 20px; }
+                        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                        .info-table td { padding: 6px; border: 1px solid #e5e7eb; font-size: 11pt; }
+                        .info-label { font-weight: bold; background-color: #fff7ed; width: 30%; }
+                        table.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px; }
+                        table.data-table th { background-color: #ea580c; color: #ffffff; padding: 8px; border: 1px solid #c2410c; font-size: 10pt; }
+                        .box-answer { background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; margin-top: 6px; font-size: 11pt; color: #1e293b; }
+                        .footer-text { margin-top: 30px; font-size: 9pt; color: #888888; text-align: center; border-top: 1px solid #dddddd; padding-top: 8px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>LEMBAR KERJA PESERTA DIDIK (LKPD) DIGITAL</h1>
+                    <div class='subtitle'>Mata Pelajaran: IPA | Sub-bab: Gaya & Hukum Newton<br>Guru Pengampu: Siti Fatimah, S.Pd. - MTsN 1 Kota Malang</div>
+
+                    <h2>1. IDENTITAS SISWA</h2>
+                    <table class='info-table'>
+                        <tr><td class='info-label'>Nama Siswa / Kelompok</td><td>${nama}</td></tr>
+                        <tr><td class='info-label'>Kelas</td><td>${kelas}</td></tr>
+                        <tr><td class='info-label'>Tanggal Pengerjaan</td><td>${tgl}</td></tr>
+                    </table>
+
+                    <h2>2. DATA HASIL PENGAMATAN SIMULASI (HUKUM II NEWTON)</h2>
+                    <table class='data-table'>
+                        <thead>
+                            <tr>
+                                <th>Percobaan Ke-</th>
+                                <th>Gaya Dorong (<i>F</i>)</th>
+                                <th>Massa Benda (<i>m</i>)</th>
+                                <th>Hasil Percepatan (<i>a</i>)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRowsHTML}
+                        </tbody>
+                    </table>
+
+                    <h2>3. ANALISIS & DISKUSI</h2>
+                    <p><b>1. Berdasarkan data tabel, apa yang terjadi pada percepatan (<i>a</i>) jika gaya (<i>F</i>) diperbesar sedangkan massa (<i>m</i>) tetap?</b></p>
+                    <div class='box-answer'>${ans1.replace(/\n/g, '<br>')}</div>
+
+                    <p style="margin-top: 14px;"><b>2. Jelaskan penerapan Hukum III Newton (<i>F<sub>aksi</sub> = -F<sub>reaksi</sub></i>) pada peluncuran roket!</b></p>
+                    <div class='box-answer'>${ans2.replace(/\n/g, '<br>')}</div>
+
+                    <h2>4. REFLEKSI PEMBELAJARAN</h2>
+                    <p><i>Apa hal yang paling menarik yang kamu pelajari hari ini bersama Ibu Siti Fatimah?</i></p>
+                    <div class='box-answer'>${refleksi.replace(/\n/g, '<br>')}</div>
+
+                    <div class='footer-text'>
+                        Modul Interaktif IPA Kelas VII - MTsN 1 Kota Malang &copy; ${new Date().getFullYear()}
+                    </div>
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff' + content], {
+                type: 'application/msword'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `LKPD_IPA_${nama.replace(/\s+/g, '_')}_Kelas7.doc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function exportQuizExcel() {
+            const nama = document.getElementById('lkpd-nama')?.value || 'Siswa_MTsN1';
+            const kelas = document.getElementById('lkpd-kelas')?.value || 'VII';
+
+            const wb = XLSX.utils.book_new();
+            const data = [
+                ["REKAPITULASI EVALUASI LATIHAN SOAL IPA"],
+                ["Pengampu", "Siti Fatimah, S.Pd. (MTsN 1 Kota Malang)"],
+                ["Nama Siswa", nama],
+                ["Kelas", kelas],
+                ["Nilai Akhir", lastQuizScore],
+                [""],
+                ["No", "Pertanyaan / Soal", "Jawaban Siswa", "Kunci Jawaban", "Status Evaluasi"]
+            ];
+
+            lastQuizDetails.forEach(item => {
+                data.push([item.no, item.soal, item.jawabanSiswa, item.kunciJawaban, item.status]);
+            });
+
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, "Rekap Nilai Quiz");
+            XLSX.writeFile(wb, `Nilai_Quiz_IPA_${nama.replace(/\s+/g, '_')}.xlsx`);
+        }
+
+        function printLKPD() {
+            window.print();
+        }
+
+        // ================= SIMULATION ENGINE =================
+        let canvas, ctx;
+        let currentSimMode = 1;
+        let animationFrameId = null;
+
+        const stateMode1 = { push: false, surface: 'licin', v: 0, x: 50 };
+        const stateMode2 = { F: 20, m: 5, x: 50, v: 0, a: 0 };
+        const stateMode3 = { F_thrust: 30, m_fuel: 10, y: 0, v: 0, a: 0, launched: false };
+
+        function loadSimulation(mode) {
+            currentSimMode = mode;
+            [1, 2, 3].forEach(m => {
+                const btn = document.getElementById(`sim-btn-${m}`);
+                if (btn) {
+                    if (m === mode) {
+                        btn.className = "px-3 py-1.5 rounded-lg font-semibold transition-all bg-brand-500 text-white shadow-sm";
+                    } else {
+                        btn.className = "px-3 py-1.5 rounded-lg font-semibold text-brand-800 hover:bg-brand-100 transition-all";
+                    }
+                }
+            });
+
+            renderSimControls();
+            resetSimulation();
+        }
+
+        function renderSimControls() {
+            const container = document.getElementById('sim-controls');
+            if (!container) return;
+
+            if (currentSimMode === 1) {
+                container.innerHTML = `
+                    <h3 class="font-bold text-brand-900 text-sm mb-2"><i class="fa-solid fa-sliders"></i> Kontrol Hukum I (Kelembaman)</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Kondisi Permukaan:</label>
+                            <select id="ctrl-surface" onchange="stateMode1.surface=this.value" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs">
+                                <option value="licin">Licin (Tanpa Gesekan / f_g = 0)</option>
+                                <option value="kasar">Kasar (Ada Gaya Gesek / f_g > 0)</option>
+                            </select>
+                        </div>
+                        <button onclick="pushObjectMode1()" class="w-full py-2 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl text-xs shadow transition-all">
+                            <i class="fa-solid fa-hand-back-fist"></i> Beri Dorongan Sesaat
+                        </button>
+                    </div>
+                `;
+            } else if (currentSimMode === 2) {
+                container.innerHTML = `
+                    <h3 class="font-bold text-brand-900 text-sm mb-2"><i class="fa-solid fa-sliders"></i> Kontrol Hukum II (F = m &middot; a)</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Pilih Benda / Massa (m):</span>
+                                <span id="lbl-m" class="text-brand-600 font-bold">5 kg</span>
+                            </div>
+                            <select id="ctrl-object-type" onchange="updateMode2Object(this.value)" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 mb-2">
+                                <option value="1">Buku (1 kg)</option>
+                                <option value="5" selected>Meja Belajar (5 kg)</option>
+                                <option value="10">Lemari Kelas (10 kg)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Gaya Dorong (F):</span>
+                                <span id="lbl-f" class="text-brand-600 font-bold">20 N</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="20" class="w-full accent-brand-500" oninput="updateMode2F(this.value)">
+                        </div>
+                    </div>
+                `;
+            } else if (currentSimMode === 3) {
+                container.innerHTML = `
+                    <h3 class="font-bold text-brand-900 text-sm mb-2"><i class="fa-solid fa-sliders"></i> Kontrol Hukum III (Peluncuran Roket)</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Gaya Semburan Gas (F_aksi):</span>
+                                <span id="lbl-thrust" class="text-brand-600 font-bold">30 N</span>
+                            </div>
+                            <input type="range" min="10" max="100" value="30" class="w-full accent-brand-500" oninput="updateMode3Thrust(this.value)">
+                        </div>
+                        <button onclick="launchRocket()" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs shadow transition-all">
+                            <i class="fa-solid fa-rocket"></i> Luncurkan Roket!
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function pushObjectMode1() {
+            stateMode1.v = 6.0;
+        }
+
+        function updateMode2Object(val) {
+            stateMode2.m = parseFloat(val);
+            document.getElementById('lbl-m').textContent = `${stateMode2.m} kg`;
+        }
+
+        function updateMode2F(val) {
+            stateMode2.F = parseFloat(val);
+            document.getElementById('lbl-f').textContent = `${stateMode2.F} N`;
+        }
+
+        function updateMode3Thrust(val) {
+            stateMode3.F_thrust = parseFloat(val);
+            document.getElementById('lbl-thrust').textContent = `${stateMode3.F_thrust} N`;
+        }
+
+        function launchRocket() {
+            stateMode3.launched = true;
+        }
+
+        function resetSimulation() {
+            stateMode1.v = 0;
+            stateMode1.x = 50;
+
+            stateMode2.x = 50;
+            stateMode2.v = 0;
+            stateMode2.a = 0;
+
+            stateMode3.y = 0;
+            stateMode3.v = 0;
+            stateMode3.a = 0;
+            stateMode3.launched = false;
+        }
+
+        function initCanvas() {
+            canvas = document.getElementById('simCanvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight || 350;
+
+            renderSimControls();
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(simLoop);
+            }
+        }
+
+        function simLoop() {
+            if (canvas && ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                if (currentSimMode === 1) {
+                    drawMode1();
+                } else if (currentSimMode === 2) {
+                    drawMode2();
+                } else if (currentSimMode === 3) {
+                    drawMode3();
+                }
+            }
+            animationFrameId = requestAnimationFrame(simLoop);
+        }
+
+        function drawMode1() {
+            const groundY = canvas.height - 80;
+
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(0, groundY, canvas.width, 80);
+
+            if (stateMode1.surface === 'kasar' && stateMode1.v > 0) {
+                stateMode1.v -= 0.02;
+                if (stateMode1.v < 0) stateMode1.v = 0;
+            }
+
+            stateMode1.x += stateMode1.v;
+            if (stateMode1.x > canvas.width - 60) {
+                stateMode1.x = 50;
+            }
+
+            const boxX = Math.round(stateMode1.x);
+            const boxY = groundY - 50;
+
+            ctx.fillStyle = '#f97316';
+            ctx.fillRect(boxX, boxY, 50, 50);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(boxX, boxY, 50, 50);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText('Dus', boxX + 13, boxY + 30);
+
+            document.getElementById('tel-v').textContent = `${stateMode1.v.toFixed(1)} m/s`;
+            document.getElementById('tel-a').textContent = `0.0 m/s²`;
+            document.getElementById('tel-f').textContent = stateMode1.surface === 'licin' ? '0 N' : (stateMode1.v > 0 ? '-2 N (Gesek)' : '0 N');
+        }
+
+        function drawMode2() {
+            const groundY = canvas.height - 80;
+
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(0, groundY, canvas.width, 80);
+
+            stateMode2.a = stateMode2.F / stateMode2.m;
+
+            if (stateMode2.F > 0) {
+                stateMode2.v += stateMode2.a * 0.008;
+                if (stateMode2.v > 12) stateMode2.v = 12;
+            } else {
+                stateMode2.v *= 0.95;
+                if (stateMode2.v < 0.01) stateMode2.v = 0;
+            }
+
+            stateMode2.x += stateMode2.v;
+            if (stateMode2.x > canvas.width - 90) {
+                stateMode2.x = 50;
+            }
+
+            const objX = Math.round(stateMode2.x);
+            const objY = groundY - 60;
+
+            ctx.fillStyle = '#ea580c';
+            ctx.fillRect(objX, objY, 70, 60);
+            ctx.strokeStyle = '#fdba74';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(objX, objY, 70, 60);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText(`${stateMode2.m} kg`, objX + 20, objY + 35);
+
+            if (stateMode2.F > 0) {
+                const arrowLength = Math.min(100, stateMode2.F * 1.2);
+                ctx.beginPath();
+                ctx.moveTo(objX - 10, objY + 30);
+                ctx.lineTo(objX - 10 - arrowLength, objY + 30);
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                ctx.fillStyle = '#38bdf8';
+                ctx.font = 'bold 11px sans-serif';
+                ctx.fillText(`F = ${stateMode2.F} N`, objX - 10 - arrowLength, objY + 20);
+            }
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = 'bold 14px Times New Roman';
+            ctx.fillText(`a = F / m = ${stateMode2.F} / ${stateMode2.m} = ${stateMode2.a.toFixed(1)} m/s²`, 20, 30);
+
+            document.getElementById('tel-v').textContent = `${stateMode2.v.toFixed(1)} m/s`;
+            document.getElementById('tel-a').textContent = `${stateMode2.a.toFixed(1)} m/s²`;
+            document.getElementById('tel-f').textContent = `${stateMode2.F} N`;
+        }
+
+        function drawMode3() {
+            const centerX = canvas.width / 2;
+
+            if (stateMode3.launched) {
+                const gravity = 9.8;
+                stateMode3.a = (stateMode3.F_thrust - gravity) / 2;
+                stateMode3.v += stateMode3.a * 0.05;
+                stateMode3.y += stateMode3.v;
+
+                if (stateMode3.y > canvas.height + 100) {
+                    resetSimulation();
+                }
+            }
+
+            const rX = centerX - 25;
+            const rY = canvas.height - 120 - Math.round(stateMode3.y);
+
+            if (stateMode3.launched && stateMode3.F_thrust > 0) {
+                ctx.beginPath();
+                ctx.moveTo(centerX - 10, rY + 80);
+                ctx.lineTo(centerX + 10, rY + 80);
+                ctx.lineTo(centerX, rY + 80 + Math.min(80, stateMode3.F_thrust * 1.5));
+                ctx.closePath();
+                ctx.fillStyle = '#f97316';
+                ctx.fill();
+
+                ctx.fillStyle = '#fbbf24';
+                ctx.font = 'bold 11px sans-serif';
+                ctx.fillText(`F_aksi = -${stateMode3.F_thrust} N`, centerX + 20, rY + 110);
+            }
+
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(rX, rY, 50, 80);
+
+            ctx.beginPath();
+            ctx.moveTo(rX, rY);
+            ctx.lineTo(rX + 25, rY - 30);
+            ctx.lineTo(rX + 50, rY);
+            ctx.closePath();
+            ctx.fillStyle = '#ea580c';
+            ctx.fill();
+
+            if (stateMode3.launched) {
+                ctx.beginPath();
+                ctx.moveTo(rX + 25, rY - 40);
+                ctx.lineTo(rX + 25, rY - 40 - Math.min(80, stateMode3.F_thrust * 1.5));
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                ctx.fillStyle = '#38bdf8';
+                ctx.font = 'bold 11px sans-serif';
+                ctx.fillText(`F_reaksi = +${stateMode3.F_thrust} N`, rX + 35, rY - 60);
+            }
+
+            document.getElementById('tel-v').textContent = `${stateMode3.v.toFixed(1)} m/s`;
+            document.getElementById('tel-a').textContent = `${stateMode3.a.toFixed(1)} m/s²`;
+            document.getElementById('tel-f').textContent = `${stateMode3.F_thrust} N`;
+        }
+
+        window.addEventListener('resize', () => {
+            if (canvas) {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight || 350;
+            }
+        });
+
+        window.onload = function() {
+            renderQuiz();
+            const today = new Date().toISOString().split('T')[0];
+            const tglInput = document.getElementById('lkpd-tgl');
+            if (tglInput) tglInput.value = today;
+        };
+    </script>
+</body>
+</html>
